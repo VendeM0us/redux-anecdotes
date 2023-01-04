@@ -22,7 +22,7 @@ describe('anecdote reducer', () => {
 
   test('should handle patch', () => {
     const action = {
-      type: 'anecdotes/patch',
+      type: 'anecdotes/updateAnecdote',
       payload: {
         content: 'anecdote 2',
         id: 2,

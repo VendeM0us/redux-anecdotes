@@ -4,7 +4,7 @@ const anecdoteSlice = createSlice({
   name: 'anecdotes',
   initialState: [],
   reducers: {
-    patch(state, action) {
+    updateAnecdote(state, action) {
       const patched = action.payload;
       return state.map((anecdote) => (anecdote.id === patched.id
         ? patched
@@ -19,5 +19,5 @@ const anecdoteSlice = createSlice({
   },
 });
 
-export const { patch, createAnecdote, seedAnecdotes } = anecdoteSlice.actions;
+export const { updateAnecdote, createAnecdote, seedAnecdotes } = anecdoteSlice.actions;
 export default anecdoteSlice.reducer;
