@@ -10,8 +10,8 @@ const getAll = async () => {
 
 const create = async (content) => {
   const newAnecdote = {
-    id: nanoid(),
     content,
+    id: nanoid(),
     votes: 0,
   };
 
@@ -19,10 +19,13 @@ const create = async (content) => {
   return response.data;
 };
 
-const update = async (id, patches) => {
+const vote = async (anecdote) => {
+  const { id, votes } = anecdote;
+  const patch = { votes: votes + 1 };
+
   const response = await axios
-    .patch(`${baseUrl}/${id}`, patches);
+    .patch(`${baseUrl}/${id}`, patch);
   return response.data;
 };
 
-export default { getAll, create, update };
+export default { getAll, create, vote };

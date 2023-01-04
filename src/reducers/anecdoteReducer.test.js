@@ -20,10 +20,14 @@ describe('anecdote reducer', () => {
     },
   ];
 
-  test('should increase votes', () => {
+  test('should handle patch', () => {
     const action = {
-      type: 'anecdotes/vote',
-      payload: 2,
+      type: 'anecdotes/patch',
+      payload: {
+        content: 'anecdote 2',
+        id: 2,
+        votes: 1,
+      },
     };
     const state = initialState;
 
@@ -41,7 +45,11 @@ describe('anecdote reducer', () => {
   test('should add new anecdote', () => {
     const action = {
       type: 'anecdotes/createAnecdote',
-      payload: 'anecdote 4',
+      payload: {
+        content: 'anecdote 4',
+        votes: 0,
+        id: 4,
+      },
     };
     const state = initialState;
 
