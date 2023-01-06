@@ -1,7 +1,7 @@
-import { useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-function Notification() {
-  const notification = useSelector((state) => state.notification);
+function Notification({ notification }) {
   if (notification === null) return null;
 
   const style = {
@@ -17,4 +17,16 @@ function Notification() {
   );
 }
 
-export default Notification;
+Notification.propTypes = {
+  notification: PropTypes.string,
+};
+
+Notification.defaultProps = {
+  notification: null,
+};
+
+const mapStateToProps = (state) => ({
+  notification: state.notification,
+});
+
+export default connect(mapStateToProps)(Notification);

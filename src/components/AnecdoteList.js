@@ -1,15 +1,11 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { vote } from '../reducers/anecdoteReducer';
 
-function AnecdoteList() {
-  const filter = useSelector((state) => state.filter);
-  const anecdotes = useSelector((state) => state.anecdotes)
-    .filter((anecdote) => anecdote.content.toLowerCase().includes(filter.toLowerCase()));
-
-  const dispatch = useDispatch();
-
+// eslint-disable-next-line no-shadow
+function AnecdoteList({ anecdotes, vote }) {
   const handleVote = async (anecdote) => {
-    dispatch(vote(anecdote));
+    vote(anecdote);
   };
 
   const anecdotesCopy = anecdotes.slice(0);
@@ -34,4 +30,25 @@ function AnecdoteList() {
   );
 }
 
-export default AnecdoteList;
+AnecdoteList.propTypes = {
+  anecdotes: PropTypes.arrayOf(PropTypes.shape({
+    content: PropTypes.string,
+    id: PropTypes.string,
+    votes: PropTypes.number,
+  })).isRequired,
+  vote: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  anecdotes: state.anecdotes
+    .filter((anecdote) => anecdote.content.toLowerCase().includes(state.filter.toLowerCase())),
+});
+
+const mapDispatchToProps = {
+  vote,
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(AnecdoteList);

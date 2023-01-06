@@ -1,12 +1,12 @@
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { setFilter } from '../reducers/filterReducer';
 
-function Filter() {
-  const dispatch = useDispatch();
-
+// eslint-disable-next-line no-shadow
+function Filter({ setFilter }) {
   const handleChange = (event) => {
     const filter = event.target.value;
-    dispatch(setFilter(filter));
+    setFilter(filter);
   };
 
   const style = {
@@ -22,4 +22,11 @@ function Filter() {
   );
 }
 
-export default Filter;
+Filter.propTypes = {
+  setFilter: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  { setFilter },
+)(Filter);

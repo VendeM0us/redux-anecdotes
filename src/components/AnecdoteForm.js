@@ -1,14 +1,14 @@
-import { useDispatch } from 'react-redux';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { createAnecdote } from '../reducers/anecdoteReducer';
 
-function AnecdoteForm() {
-  const dispatch = useDispatch();
-
+// eslint-disable-next-line no-shadow
+function AnecdoteForm({ createAnecdote }) {
   const addAnecdote = async (event) => {
     event.preventDefault();
     const content = event.target.anecdote.value;
     event.target.anecdote.value = '';
-    dispatch(createAnecdote(content));
+    createAnecdote(content);
   };
 
   return (
@@ -22,4 +22,11 @@ function AnecdoteForm() {
   );
 }
 
-export default AnecdoteForm;
+AnecdoteForm.propTypes = {
+  createAnecdote: PropTypes.func.isRequired,
+};
+
+export default connect(
+  null,
+  { createAnecdote },
+)(AnecdoteForm);
